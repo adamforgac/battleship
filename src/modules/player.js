@@ -1,3 +1,5 @@
 const player = {
-    name: "player", 
+    name: "", 
 }
+
+export default player;

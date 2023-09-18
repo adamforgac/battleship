@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="queries.css">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    <title>Battleship</title>
+    <script src="https://kit.fontawesome.com/e4b054a4b4.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="content">
+        <div class="wrapper">
+            <header>
+                <img src="images/battleship-logo.png" alt="game-logo">
+            </header>
     
+            <main>
+                <h3 class="middle-heading">Enter your name:</h3>
+                <input placeholder="GENERAL" id="name-input" class="name-input" type="text">
+                <p class="alert-text">name required</p>
+                <button class="start-button">start game</button>
+            </main>
+    
+            <footer>
+                <img src="images/logo-white.svg" alt="">
+            </footer>
+        </div>
+    </div>
 </body>
 <script src="main.js" type="module"></script>
 </html>
