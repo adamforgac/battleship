@@ -8,15 +8,17 @@ export default class Gameboard {
     this.ships = [];
   }
 
-  showBoard() {
-    const gridContainer = document.querySelector('.grid-container');
+  showBoard(className) {
+    const gridContainer = document.querySelector(`.${className}`);
 
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         const gridCell = document.createElement('div');
         gridCell.classList.add('grid-cell');
-        gridCell.textContent = `${i + 1},${j + 1}`; 
         gridContainer.appendChild(gridCell);
+
+        const uniqueClassName = `cell-${i + 1}-${j + 1}`;
+        gridCell.classList.add(uniqueClassName);
       }
     }
   }
