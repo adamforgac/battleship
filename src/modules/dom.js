@@ -28,7 +28,7 @@ function boardPicker() {
 
   const playerGameBoard = new Gameboard();
   playerGameBoard.showBoard('grid-container-picker');
-  shipListener('grid-container-picker');
+  shipListener('grid-container-picker', playerGameBoard);
 }
 
 export default function createDom() {

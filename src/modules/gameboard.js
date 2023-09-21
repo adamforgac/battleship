@@ -8,6 +8,15 @@ export default class Gameboard {
     this.ships = [];
   }
 
+  updateCoordinates(occupiedItem) {
+    this.occupiedCoordinates.push(occupiedItem);
+  }
+
+  checkOccupied(position) {
+    console.log(this.occupiedCoordinates);
+    return this.occupiedCoordinates.includes(position);
+  }
+
   showBoard(className) {
     const gridContainer = document.querySelector(`.${className}`);
 
