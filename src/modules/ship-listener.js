@@ -18,29 +18,28 @@ export default function shipListener(className, playerGameBoard) {
     const shipLength = shipSizes.shift();
     const shipOrientation = document.querySelector('.axis-button').textContent;
 
-    if (checkShipValidity(shipOrientation, shipLength, position) && checkOccupied(position, shipLength, shipOrientation, playerGameBoard)) {
+    if (checkShipValidity(shipOrientation, shipLength, position) && checkStatus(position, shipLength, shipOrientation, playerGameBoard)) {
       // creates image
       const ship = new Ship(shipLength, shipOrientation, position);
       allShips.push(ship);
-      console.log('true');
+      console.log(allShips);
     } else {
       shipSizes.unshift(shipLength);
-      console.log('false');
     }
   });
 }
 
-function checkOccupied(
+function checkStatus(
   newPosition,
   length,
   orientation,
   playBoard,
 ) {
-  const occupiedSpots = [];
+  console.log('works');
   const axisParts = newPosition.split('-');
   const row = Number(axisParts[1]);
   const col = Number(axisParts[2]);
-  if (!playBoard.checkOccupied(newPosition)) {
+  if (!playBoard.checkOccupied(row, col, orientation, length)) {
     if (orientation === 'AXIS: X') {
       for (let i = 0; i < length; i++) {
         playBoard.updateCoordinates(`cell-${row}-${col + i}`);
@@ -50,10 +49,9 @@ function checkOccupied(
         playBoard.updateCoordinates(`cell-${row + i}-${col}`);
       }
     }
-
-    playBoard.checkOccupied()
-    console.log(occupiedSpots);
+    playBoard.checkOccupied();
     return true;
   }
+
   return false;
 }

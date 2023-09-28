@@ -7,12 +7,12 @@ export default function checkShipValidity(axis, length, position) {
     console.log(row);
     console.log(col);
     console.log(col - realSize);
-    if ((col + realSize > 10) || (col - realSize <= 0)) {
+    if ((col + realSize > 10)) {
       return false;
     }
     return true;
   } if (axis === 'AXIS: Y') {
-    if ((row + realSize > 10) || (row - realSize <= 0)) {
+    if ((row + realSize > 10)) {
       return false;
     }
     return true;

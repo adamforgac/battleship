@@ -12,9 +12,27 @@ export default class Gameboard {
     this.occupiedCoordinates.push(occupiedItem);
   }
 
-  checkOccupied(position) {
-    console.log(this.occupiedCoordinates);
-    return this.occupiedCoordinates.includes(position);
+  checkOccupied(row, col, orientation, length) {
+    if (orientation === 'AXIS: X') {
+      for (let i = 0; i < length; i++) {
+        const spot = `cell-${row}-${col + i}`;
+        console.log(spot);
+        if (this.occupiedCoordinates.includes(spot)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+    for (let i = 0; i < length; i++) {
+      const spot = `cell-${row + i}-${col}`;
+      console.log(spot);
+      if (this.occupiedCoordinates.includes(spot)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   showBoard(className) {
