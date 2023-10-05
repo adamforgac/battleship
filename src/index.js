@@ -1,3 +1,3 @@
-import createDom from './modules/dom';
+import { createWelcomeScreen } from './modules/dom';
 
-createDom();
+createWelcomeScreen();

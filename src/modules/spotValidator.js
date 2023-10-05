@@ -1,4 +1,5 @@
 export default function checkShipValidity(axis, length, position) {
+  console.log(position);
   const realSize = length - 1;
   const axisParts = position.split('-');
   const row = Number(axisParts[1]);

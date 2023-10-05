@@ -133,11 +133,61 @@ main button {
     width: 500px;        
 }
 
+.player-half, .bot-half {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bot-heading, .player-heading {
+    margin-bottom: 20px;
+}
+
+.bot-heading, .player-heading {
+    font-family: 'Space Mono', monospace;
+    color: white;
+    font-size: 2rem;
+}
+
+.player-field {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr);   
+    gap: 4px;                                                      
+    border: 2px solid #000;        
+    height: 500px;
+    width: 500px;
+}
+
+.bot-field {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    grid-template-rows: repeat(10, 1fr);   
+    gap: 4px;                                                      
+    border: 2px solid #000;        
+    height: 500px;
+    width: 500px;
+}
+
 .grid-cell {
     border: 1px solid #ccc;
     text-align: center;
     height: 100%;
     width: 100%;
+    background-color: transparent;
+    transition: 0.1s;
+}
+
+.hovered {
+    background-color: #ccc;
+    transition: 0.1s;
+}
+
+.hovered-red {
+    background-color: red;
+    transition: 0.1s;
+    cursor: not-allowed;
 }
 
 /* FOOTER */
