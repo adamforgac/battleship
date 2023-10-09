@@ -18,7 +18,7 @@ export default class Gameboard {
         const spot = `cell-${row}-${col + i}`;
         console.log(spot);
         if (this.occupiedCoordinates.includes(spot)) {
-          return true; // returns true if one of the coordination is occupied
+          return true;
         }
       }
     } else {
@@ -51,10 +51,6 @@ export default class Gameboard {
     }
   }
 
-  placeShip(ship) {
-    this.ships.push(ship);
-  }
-
   showShips() {
     console.log(this.ships);
     console.log(this.occupiedCoordinates);
@@ -63,6 +59,34 @@ export default class Gameboard {
   showCurrentSize() {
     const infoArr = [this.ships[this.ships.length - 1], this.ships[this.ships.length - 2]];
     return infoArr;
+  }
+
+  placeImage(ship, gameField) {
+    const cellSize = 48;
+    const positionParts = ship.position.split('-');
+    const row = Number(positionParts[1]);
+    const col = Number(positionParts[2]);
+    let leftMargin;
+    let topMargin;
+    const finalSize = cellSize * ship.length;
+    const field = document.querySelector(`.${gameField}`);
+    const startingPoint = field.querySelector(`.${ship.position}`);
+    console.log(startingPoint);
+    const shipImage = document.createElement('img');
+    if (ship.orientation === 'AXIS: X') {
+      shipImage.classList.add('ship-image-x');
+      topMargin = 50 * (row - 1);
+      leftMargin = 50 * (col - 1);
+    } else {
+      shipImage.classList.add('ship-image-y');
+      topMargin = 50 * (row - 1);
+      leftMargin = 50 * (col - 1);
+    }
+    shipImage.style.width = `${finalSize}px`;
+    shipImage.style.top = `${topMargin}px`;
+    shipImage.style.left = `${leftMargin}px`;
+    shipImage.src = `images/${ship.length}-ship.png`;
+    startingPoint.appendChild(shipImage);
   }
 
   receiveAttack(row, col) {

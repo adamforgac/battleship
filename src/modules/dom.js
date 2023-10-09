@@ -2,6 +2,7 @@ import player from './player';
 import Gameboard from './gameboard';
 import shipListener from './ship-listener';
 import createRandomField from './randomField';
+import gameLoop from './game-loop';
 
 const contentField = document.querySelector('.content');
 const middleHeading = document.querySelector('.middle-heading');
@@ -78,6 +79,10 @@ export function createMainGameField(playerGameBoard) {
   const botGameBoard = createRandomField();
   botGameBoard.showBoard('bot-field');
   botGameBoard.showShips();
+  playerGameBoard.ships.forEach((ship) => {
+    playerGameBoard.placeImage(ship, 'player-field');
+  });
+  gameLoop(playerGameBoard, botGameBoard);
 }
 
 export function createWelcomeScreen() {

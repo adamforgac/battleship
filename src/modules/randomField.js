@@ -18,7 +18,7 @@ export default function createRandomField() {
       xNum = randomPick;
       yNum = startPoint;
     } else {
-      console.log("worked");
+      console.log('worked');
       xNum = startPoint;
       yNum = randomPick;
     }
@@ -29,7 +29,7 @@ export default function createRandomField() {
       shipSizes.unshift(currentSize);
     } else {
       const newShip = new Ship(currentSize, orientationPick, connectedClass);
-      botGameBoard.placeShip(newShip);
+      botGameBoard.ships.push(newShip);
     }
   }
 

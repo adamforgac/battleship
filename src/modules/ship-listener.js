@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-return */
 import Ship from './ship';
 import checkShipValidity from './spotValidator';
-import createImage from './imageCreator';
 import Gameboard from './gameboard';
 import checkStatus from './availabilityValidator';
 import { createMainGameField, hoverColors } from './dom';
@@ -29,14 +28,18 @@ export default function shipListener(className, playerGameBoard) {
     hoverColors(shipOrientation, shipLength);
 
     if (checkShipValidity(shipOrientation, shipLength, position) && checkStatus(position, shipLength, shipOrientation, playerGameBoard)) {
-      // creates image
       console.log('completed');
       const ship = new Ship(shipLength, shipOrientation, position);
-      playerGameBoard.placeShip(ship);
+      playerGameBoard.ships.push(ship);
+      playerGameBoard.placeImage(ship, 'grid-container-picker');
       if (shipSizes.length === 0) {
         // Remove the event listener when the condition is fulfilled
         gameField.removeEventListener('click', clickHandler);
-        createMainGameField(playerGameBoard);
+        const backgroundAnimation = document.querySelector('.background-animation-space');
+        backgroundAnimation.classList.add('background-animation');
+        setTimeout(() => {
+          createMainGameField(playerGameBoard);
+        }, 800);
         return;
       }
       console.log(shipSizes);
