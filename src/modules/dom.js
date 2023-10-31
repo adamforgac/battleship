@@ -4,7 +4,8 @@ import shipListener from './ship-listener';
 import createRandomField from './randomField';
 import gameLoop from './game-loop';
 
-const contentField = document.querySelector('.content');
+// MAIN VARIABLES
+
 const middleHeading = document.querySelector('.middle-heading');
 const inputElement = document.querySelector('.name-input');
 const mainArea = document.querySelector('main');
@@ -12,6 +13,7 @@ const logoImage = document.querySelector('header img');
 const xyButton = document.createElement('button');
 const wrapper = document.querySelector('.wrapper');
 const startButton = document.querySelector('.start-button');
+const rulesButton = document.querySelector('.rules-link');
 const gridContainer = document.createElement('div');
 const leftSide = document.createElement('div');
 const rightSide = document.createElement('div');
@@ -19,6 +21,10 @@ const playerHeading = document.createElement('h2');
 const botHeading = document.createElement('h2');
 const playerField = document.createElement('div');
 const botField = document.createElement('div');
+const header = document.querySelector('header');
+const pickerImage = document.createElement('img');
+pickerImage.src = 'images/battleship-logo.png';
+pickerImage.classList.add('picker-image');
 let playerGameBoard;
 
 function checkButton() {
@@ -32,12 +38,17 @@ function checkButton() {
   });
 }
 
+// FUNCTION WHICH CREATES THE BOARD WHERE THE PLAYER PLACES HIS SHIPS
+
 function boardPicker() {
   gridContainer.classList.add('grid-container-picker');
 
-  logoImage.style.width = '300px';
+  logoImage.remove();
+  mainArea.style.gap = '20px';
+  rulesButton.remove();
+  header.appendChild(pickerImage);
   middleHeading.textContent = `${player.name}, PLACE YOUR SHIPS`;
-  middleHeading.style.marginTop = '40px';
+  middleHeading.style.marginTop = '10px';
   xyButton.textContent = 'AXIS: X';
   inputElement.parentNode.replaceChild(xyButton, inputElement);
   xyButton.classList.add('axis-button');
@@ -52,13 +63,17 @@ function boardPicker() {
   shipListener('grid-container-picker', playerGameBoard);
 }
 
-export function createMainGameField(playerGameBoard) {
+// FUNCTION WHICH CREATES THE MAIN GAME FIELD (PLAYER AND COMPUTER)
+
+export function createMainGameField(playerBoard) {
   middleHeading.remove();
   xyButton.remove();
   gridContainer.remove();
+  mainArea.style.gap = '40px';
+  header.style.marginBottom = '40px';
   document.querySelector('.alert-text').remove();
   mainArea.style.display = 'flex';
-  mainArea.style.justifyContent = 'spaceAround';
+  mainArea.style.justifyContent = 'space-around';
   mainArea.style.alignItems = 'center';
   playerField.classList.add('player-field');
   botField.classList.add('bot-field');
@@ -74,34 +89,58 @@ export function createMainGameField(playerGameBoard) {
   rightSide.appendChild(botField);
   mainArea.appendChild(leftSide);
   mainArea.appendChild(rightSide);
-  playerGameBoard.showBoard('player-field');
-  playerGameBoard.showShips();
+  playerBoard.showBoard('player-field');
   const botGameBoard = createRandomField();
   botGameBoard.showBoard('bot-field');
-  botGameBoard.showShips();
-  playerGameBoard.ships.forEach((ship) => {
-    playerGameBoard.placeImage(ship, 'player-field');
+  playerBoard.ships.forEach((ship) => {
+    playerBoard.placeImage(ship, 'player-field');
   });
-  gameLoop(playerGameBoard, botGameBoard);
+  gameLoop(playerBoard, botGameBoard);
 }
 
+// FUNCTION WHICH CREATES THE WELCOME SCREEN
+
 export function createWelcomeScreen() {
-  const startButton = document.querySelector('.start-button');
   const nameInput = document.querySelector('.name-input');
+  nameInput.style.backgroundColor = 'rgb(204, 208, 206)';
   const alertText = document.querySelector('.alert-text');
 
   startButton.addEventListener('click', () => {
     if (nameInput.value === '') {
       alertText.style.color = 'red';
     } else {
-      player.name = `${nameInput.value}`;
+      const inputValue = nameInput.value;
+      const correctForm = inputValue.replace(/\s/g, '');
+      player.name = `${correctForm}`;
       alertText.style.display = 'none';
       boardPicker();
     }
   });
 }
 
+export function callWinner(winner) {
+  const winningScreen = document.querySelector('.winning-screen');
+  const winningText = document.querySelector('.winner-question');
+  const winningImage = document.querySelector('.winner-image');
+
+  winningScreen.style.top = '0';
+  winningScreen.style.visibility = 'visible';
+  winningScreen.style.pointerEvents = 'all';
+
+  if (winner === 'player') {
+    winningText.textContent = 'You won!';
+    winningImage.src = 'images/person-winner.png';
+  } else {
+    winningText.textContent = 'Computer won!';
+    winningImage.src = 'images/computer-winner.png';
+    winningImage.style.transform = 'translate(-50px, 0)';
+  }
+}
+
+// FUNCTION FOR CREATING PROPER HOVER EFFECTS
+
 export function hoverColors(orientation, length) {
+  let shipOrientation = orientation;
   let activeNumber = length;
   const gridCells = document.querySelectorAll('.grid-cell');
   const orientationButton = document.querySelector('.axis-button');
@@ -109,12 +148,10 @@ export function hoverColors(orientation, length) {
   gridCells.forEach((cell, index) => {
     cell.addEventListener('mouseenter', () => {
       if (orientationButton.textContent === 'AXIS: X') {
-        orientation = 'AXIS: X';
+        shipOrientation = 'AXIS: X';
       } else {
-        orientation = 'AXIS: Y';
+        shipOrientation = 'AXIS: Y';
       }
-
-      const neededCoordinates = [];
 
       if (playerGameBoard.showCurrentSize()[0]) {
         let currentLength = playerGameBoard.showCurrentSize()[0].length;
@@ -125,17 +162,12 @@ export function hoverColors(orientation, length) {
         }
 
         if (currentLength === 3 && previousLength !== 3) {
-          console.log('option1');
           activeNumber = 3;
           currentLength -= 1;
         } else if (currentLength === 4) {
-          console.log('option2');
           activeNumber = 3;
         } else {
-          console.log(currentLength);
-          console.log('option3');
           activeNumber = currentLength - 1;
-          console.log(activeNumber);
         }
       }
 
@@ -145,11 +177,11 @@ export function hoverColors(orientation, length) {
       const maxCellsInRow = 10 - row + 1;
       const maxCellsInCol = 10 - col + 1;
 
-      if (activeNumber > maxCellsInRow && orientation === 'AXIS: Y') {
+      if (activeNumber > maxCellsInRow && shipOrientation === 'AXIS: Y') {
         cell.classList.add('hovered-red');
-      } else if (activeNumber > maxCellsInCol && orientation === 'AXIS: X') {
+      } else if (activeNumber > maxCellsInCol && shipOrientation === 'AXIS: X') {
         cell.classList.add('hovered-red');
-      } else if (playerGameBoard.checkOccupied(row, col, orientation, activeNumber)) {
+      } else if (playerGameBoard.checkOccupied(row, col, shipOrientation, activeNumber)) {
         cell.classList.add('hovered-red');
       } else {
         cell.classList.add('hovered');
@@ -157,20 +189,35 @@ export function hoverColors(orientation, length) {
         for (let i = 1; i < activeNumber; i++) {
           const nextRowCell = gridCells[index + i];
           const nextColCell = gridCells[index + i * 10];
-          if (nextRowCell && orientation === 'AXIS: X') {
+          if (nextRowCell && shipOrientation === 'AXIS: X') {
             nextRowCell.classList.add('hovered');
           }
-          if (nextColCell && orientation === 'AXIS: Y') {
+          if (nextColCell && shipOrientation === 'AXIS: Y') {
             nextColCell.classList.add('hovered');
           }
         }
       }
     });
 
-    cell.addEventListener('mouseleave', () => {
-      gridCells.forEach((cell) => {
-        cell.classList.remove('hovered', 'hovered-red');
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+    function removeHover() {
+      gridCells.forEach((pole) => {
+        pole.classList.remove('hovered', 'hovered-red');
       });
+    }
+
+    if (isTouchDevice) {
+      setTimeout(removeHover, 500);
+    }
+
+    cell.addEventListener('mouseleave', () => {
+      removeHover();
     });
   });
 }
+
+const resetButton = document.querySelector('.new-game');
+resetButton.addEventListener('click', () => {
+  location.reload();
+});
