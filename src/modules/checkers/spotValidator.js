@@ -14,4 +14,5 @@ export default function checkShipValidity(axis, length, position) {
     }
     return true;
   }
+  return 'none';
 }

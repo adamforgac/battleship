@@ -1,8 +1,8 @@
-import player from './player';
-import Gameboard from './gameboard';
+import player from '../game-objects/player';
+import Gameboard from '../game-objects/gameboard';
 import shipListener from './ship-listener';
-import createRandomField from './randomField';
-import gameLoop from './game-loop';
+import createRandomField from '../game-loop/randomField';
+import gameLoop from '../game-loop/game-loop';
 
 // MAIN VARIABLES
 

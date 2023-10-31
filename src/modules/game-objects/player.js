@@ -1,4 +1,4 @@
-import showWinner from './determineWinner';
+import showWinner from '../checkers/determineWinner';
 
 const player = {
   playerAttack(event, playerBoard, botBoard) {

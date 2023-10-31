@@ -1,6 +1,8 @@
+/* eslint-disable no-labels */
+/* eslint-disable no-shadow */
 /* eslint-disable no-continue */
 import player from './player';
-import showWinner from './determineWinner';
+import showWinner from '../checkers/determineWinner';
 
 const computer = {
   generateRandomMove(bombedArr) {
@@ -45,7 +47,7 @@ const computer = {
       if (innerDiv) {
         adjacentCells.push(cell);
       } else {
-        break; 
+        break;
       }
 
       currentRow = newRow;
@@ -57,102 +59,6 @@ const computer = {
 
   playComputer(occupiedArr, bombedArr, playerBoard, botBoard) {
     const domPlayerBoard = document.querySelector('.player-field');
-    const grid = Array.from(domPlayerBoard.querySelectorAll('.grid-cell'));
-    const randomCoordinate = this.generateRandomMove(bombedArr);
-    let domChosenSpot = domPlayerBoard.querySelector(`.${randomCoordinate}`);
-
-    outerLoop: for (let row = 1; row <= 10; row++) {
-      for (let col = 1; col <= 10; col++) {
-        const cellClassName = `cell-${row}-${col}`;
-        const cell = grid.find((cell) => cell.classList.contains(cellClassName));
-        const innerDiv = cell.querySelector('.hit');
-
-        if (innerDiv && !cell.classList.contains('sank')) {
-          const leftCells = this.findAdjacentHitCells(row, col, 'left');
-          const rightCells = this.findAdjacentHitCells(row, col, 'right');
-          const upCells = this.findAdjacentHitCells(row, col, 'up');
-          const downCells = this.findAdjacentHitCells(row, col, 'down');
-
-          if (leftCells.length >= 1 || rightCells.length >= 1) {
-            const newRow = row;
-            const newColVerOne = col + 1;
-            const newColVerTwo = col - 1;
-            let newCol = newColVerOne;
-
-            if (bombedArr.includes(`cell-${newRow}-${newColVerOne}`) && bombedArr.includes(`cell-${newRow}-${newColVerTwo}`)) {
-              continue;
-            } else if ((bombedArr.includes(`cell-${newRow}-${newColVerOne}`)) && (domPlayerBoard.querySelector(`.cell-${newRow}-${newColVerTwo}`))) {
-              newCol = newColVerTwo;
-            } else if ((bombedArr.includes(`cell-${newRow}-${newColVerTwo}`)) && (domPlayerBoard.querySelector(`.cell-${newRow}-${newColVerOne}`))) {
-              newCol = newColVerOne;
-            } else {
-              continue;
-            }
-
-            const finalClass = `cell-${newRow}-${newCol}`;
-            domChosenSpot = domPlayerBoard.querySelector(`.${finalClass}`);
-
-            checkHit(finalClass);
-            break outerLoop;
-          } else if (upCells.length >= 1 || downCells.length >= 1) {
-            const newRowVerOne = row + 1;
-            const newRowVerTwo = row - 1;
-            const newCol = col;
-            let newRow = newRowVerOne;
-
-            if (bombedArr.includes(`cell-${newRowVerOne}-${newCol}`) && bombedArr.includes(`cell-${newRowVerTwo}-${newCol}`)) {
-              continue;
-            } else if ((bombedArr.includes(`cell-${newRowVerOne}-${newCol}`)) && (domPlayerBoard.querySelector(`.cell-${newRowVerTwo}-${newCol}`))) {
-              newRow = newRowVerTwo;
-            } else if ((bombedArr.includes(`cell-${newRowVerTwo}-${newCol}`)) && (domPlayerBoard.querySelector(`.cell-${newRowVerOne}-${newCol}`))) {
-              newRow = newRowVerOne;
-            } else {
-              // eslint-disable-next-line no-continue
-              continue;
-            }
-            const finalClass = `cell-${newRow}-${newCol}`;
-            domChosenSpot = domPlayerBoard.querySelector(`.${finalClass}`);
-            checkHit(finalClass);
-            break outerLoop;
-          } else {
-            const oneRight = `cell-${row}-${col + 1}`;
-            const oneLeft = `cell-${row}-${col - 1}`;
-            const oneTop = `cell-${row - 1}-${col}`;
-            const oneBottom = `cell-${row + 1}-${col}`;
-
-            let finalClass;
-
-            const directions = [oneBottom, oneLeft, oneRight, oneTop];
-            const maxAttempts = 4;
-
-            let selectedDirection = null;
-            let attempts = 0;
-
-            while (attempts <= maxAttempts) {
-              selectedDirection = directions[Math.floor(Math.random() * directions.length)];
-
-              if (domPlayerBoard.querySelector(`.${selectedDirection}`) && !bombedArr.includes(selectedDirection)) {
-                break;
-              }
-
-              attempts++;
-            }
-
-            if (attempts <= maxAttempts) {
-              checkHit(selectedDirection);
-              break outerLoop;
-            } else {
-              checkHit(randomCoordinate);
-              break outerLoop;
-            }
-          }
-        } else if (row === 10 && col === 10) {
-          checkHit(randomCoordinate);
-          break outerLoop;
-        }
-      }
-    }
-
     function checkHit(spot) {
       const finalSpot = domPlayerBoard.querySelector(`.${spot}`);
       if (occupiedArr.includes(spot)) {
@@ -191,6 +97,96 @@ const computer = {
 
       bombedArr.push(spot);
       player.playStatus = true;
+    }
+    const grid = Array.from(domPlayerBoard.querySelectorAll('.grid-cell'));
+    const randomCoordinate = this.generateRandomMove(bombedArr);
+
+    outerLoop: for (let row = 1; row <= 10; row++) {
+      for (let col = 1; col <= 10; col++) {
+        const cellClassName = `cell-${row}-${col}`;
+        const cell = grid.find((cell) => cell.classList.contains(cellClassName));
+        const innerDiv = cell.querySelector('.hit');
+
+        if (innerDiv && !cell.classList.contains('sank')) {
+          const leftCells = this.findAdjacentHitCells(row, col, 'left');
+          const rightCells = this.findAdjacentHitCells(row, col, 'right');
+          const upCells = this.findAdjacentHitCells(row, col, 'up');
+          const downCells = this.findAdjacentHitCells(row, col, 'down');
+
+          if (leftCells.length >= 1 || rightCells.length >= 1) {
+            const newRow = row;
+            const newColVerOne = col + 1;
+            const newColVerTwo = col - 1;
+            let newCol = newColVerOne;
+
+            if (bombedArr.includes(`cell-${newRow}-${newColVerOne}`) && bombedArr.includes(`cell-${newRow}-${newColVerTwo}`)) {
+              continue;
+            } else if ((bombedArr.includes(`cell-${newRow}-${newColVerOne}`)) && (domPlayerBoard.querySelector(`.cell-${newRow}-${newColVerTwo}`))) {
+              newCol = newColVerTwo;
+            } else if ((bombedArr.includes(`cell-${newRow}-${newColVerTwo}`)) && (domPlayerBoard.querySelector(`.cell-${newRow}-${newColVerOne}`))) {
+              newCol = newColVerOne;
+            } else {
+              continue;
+            }
+
+            const finalClass = `cell-${newRow}-${newCol}`;
+
+            checkHit(finalClass);
+            break outerLoop;
+          } else if (upCells.length >= 1 || downCells.length >= 1) {
+            const newRowVerOne = row + 1;
+            const newRowVerTwo = row - 1;
+            const newCol = col;
+            let newRow = newRowVerOne;
+
+            if (bombedArr.includes(`cell-${newRowVerOne}-${newCol}`) && bombedArr.includes(`cell-${newRowVerTwo}-${newCol}`)) {
+              continue;
+            } else if ((bombedArr.includes(`cell-${newRowVerOne}-${newCol}`)) && (domPlayerBoard.querySelector(`.cell-${newRowVerTwo}-${newCol}`))) {
+              newRow = newRowVerTwo;
+            } else if ((bombedArr.includes(`cell-${newRowVerTwo}-${newCol}`)) && (domPlayerBoard.querySelector(`.cell-${newRowVerOne}-${newCol}`))) {
+              newRow = newRowVerOne;
+            } else {
+              // eslint-disable-next-line no-continue
+              continue;
+            }
+            const finalClass = `cell-${newRow}-${newCol}`;
+            checkHit(finalClass);
+            break outerLoop;
+          } else {
+            const oneRight = `cell-${row}-${col + 1}`;
+            const oneLeft = `cell-${row}-${col - 1}`;
+            const oneTop = `cell-${row - 1}-${col}`;
+            const oneBottom = `cell-${row + 1}-${col}`;
+
+            const directions = [oneBottom, oneLeft, oneRight, oneTop];
+            const maxAttempts = 4;
+
+            let selectedDirection = null;
+            let attempts = 0;
+
+            while (attempts <= maxAttempts) {
+              selectedDirection = directions[Math.floor(Math.random() * directions.length)];
+
+              if (domPlayerBoard.querySelector(`.${selectedDirection}`) && !bombedArr.includes(selectedDirection)) {
+                break;
+              }
+
+              attempts++;
+            }
+
+            if (attempts <= maxAttempts) {
+              checkHit(selectedDirection);
+              break outerLoop;
+            } else {
+              checkHit(randomCoordinate);
+              break outerLoop;
+            }
+          }
+        } else if (row === 10 && col === 10) {
+          checkHit(randomCoordinate);
+          break outerLoop;
+        }
+      }
     }
   },
 };

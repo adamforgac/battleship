@@ -1,6 +1,6 @@
-import computer from './computer';
-import player from './player';
-import { callWinner } from './dom';
+import computer from '../game-objects/computer';
+import player from '../game-objects/player';
+import { callWinner } from '../dom/dom';
 
 // MANAGES THE FLOW OF THE GAME
 

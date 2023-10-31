@@ -1,4 +1,4 @@
-import { callWinner } from './dom';
+import { callWinner } from '../dom/dom';
 
 function updateDom(winner) {
   const wrapper = document.querySelector('.wrapper');
@@ -15,8 +15,12 @@ function updateDom(winner) {
 }
 
 export default function showWinner(botBoard, playerBoard) {
-  const playerWin = botBoard.occupiedCoordinates.every((item) => botBoard.bombedCoordinates.includes(item));
-  const botWin = playerBoard.occupiedCoordinates.every((item) => playerBoard.bombedCoordinates.includes(item));
+  const playerWin = botBoard.occupiedCoordinates.every(
+    (item) => botBoard.bombedCoordinates.includes(item),
+  );
+  const botWin = playerBoard.occupiedCoordinates.every(
+    (item) => playerBoard.bombedCoordinates.includes(item),
+  );
 
   if (playerWin) {
     updateDom('player');

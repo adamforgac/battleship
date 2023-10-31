@@ -1,8 +1,8 @@
 /* eslint-disable no-useless-return */
-import Ship from './ship';
-import checkShipValidity from './spotValidator';
-import Gameboard from './gameboard';
-import checkStatus from './availabilityValidator';
+import Ship from '../game-objects/ship';
+import checkShipValidity from '../checkers/spotValidator';
+import Gameboard from '../game-objects/gameboard';
+import checkStatus from '../checkers/availabilityValidator';
 import { createMainGameField, hoverColors } from './dom';
 
 export default function shipListener(className, playerGameBoard) {

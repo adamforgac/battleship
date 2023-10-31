@@ -1,9 +1,9 @@
-import Ship from './ship';
-import Gameboard from './gameboard';
-import checkStatus from './availabilityValidator';
-import showWinner from '../../mocks/showWinner';
-import markSunkShips from '../../mocks/markSunkShips';
-import checkShipValidity from './spotValidator';
+import Ship from '../game-objects/ship';
+import Gameboard from '../game-objects/gameboard';
+import checkStatus from '../checkers/availabilityValidator';
+import showWinner from '../../../mocks/showWinner';
+import markSunkShips from '../../../mocks/markSunkShips';
+import checkShipValidity from '../checkers/spotValidator';
 
 const { JSDOM } = require('jsdom');
 
@@ -14,11 +14,6 @@ global.document = document;
 global.window = {
   innerWidth: 1024, // Set the width to your desired value.
 };
-
-jest.mock('./determineWinner', () => ({
-  __esModule: true,
-  default: (botBoard, playerBoard) => 'player won', // Mock the function's return value
-}));
 
 describe('Ship', () => {
   let ship;
@@ -58,9 +53,6 @@ describe('Ship', () => {
 
 describe('Gameboard', () => {
   let gameboard;
-  let ship1;
-  let ship2;
-  let ship3;
   let ship4;
 
   beforeEach(() => {
@@ -75,9 +67,6 @@ describe('Gameboard', () => {
 
     const ship3 = new Ship(4, 'AXIS: X', 'cell-7-3');
     gameboard.ships.push(ship3);
-
-    const ship4 = new Ship(3, 'AXIS: X', 'cell-1-3');
-    gameboard.ships.push(ship4);
   });
 
   it('Adds the occupied items to the array', () => {
@@ -96,6 +85,7 @@ describe('Gameboard', () => {
       if (selector === '.game-field') {
         return fieldElement;
       }
+      return 'false';
     });
     document.querySelector = querySelectorMock;
 
@@ -159,12 +149,11 @@ describe('Gameboard', () => {
 
   it('checks if the ship fits inside the game board', () => {
     gameboard.ships.push(ship4);
-    const result = checkShipValidity("AXIS: X", 3, "cell-2-4");
-    const result2 = checkShipValidity("AXIS: X", 5, "cell-5-7");
+    const result = checkShipValidity('AXIS: X', 3, 'cell-2-4');
+    const result2 = checkShipValidity('AXIS: X', 5, 'cell-5-7');
     expect(result).toEqual(true);
     expect(result2).toEqual(false);
   });
-  
 });
 
 describe('showWinner', () => {

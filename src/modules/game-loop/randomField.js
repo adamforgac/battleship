@@ -1,6 +1,6 @@
-import checkStatus from './availabilityValidator';
-import Gameboard from './gameboard';
-import Ship from './ship';
+import checkStatus from '../checkers/availabilityValidator';
+import Gameboard from '../game-objects/gameboard';
+import Ship from '../game-objects/ship';
 
 export default function createRandomField() {
   const botGameBoard = new Gameboard();

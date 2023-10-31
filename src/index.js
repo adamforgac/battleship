@@ -1,4 +1,4 @@
-import { createWelcomeScreen } from './modules/dom';
+import { createWelcomeScreen } from './modules/dom/dom';
 
 createWelcomeScreen();
 
