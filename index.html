@@ -20,18 +20,25 @@
     
             <main>
                 <h3 class="middle-heading">Enter your name:</h3>
-                <input placeholder="GENERAL" id="name-input" class="name-input" type="text">
+                <input autocomplete="off" maxlength="10" placeholder="CAPTAIN" id="name-input" class="name-input" type="text">
                 <p class="alert-text">name required</p>
-                <button class="start-button">start game</button>
+                <button class="start-button">start&nbsp;game</button>
+                <a class="rules-link" href="https://en.wikipedia.org/wiki/Battleship_(game)"><button class="rules">rules</button></a>
             </main>
     
             <footer>
                 <img src="images/logo-white.svg" alt="">
             </footer>
+        </div>
 
-            <div class="background-animation-space">
-                <img src="images/battleship-logo.png" alt="game-logo">
-            </div>
+        <div class="background-animation-space">
+            <img src="images/battleship-logo.png" alt="game-logo">
+        </div>
+
+        <div class="winning-screen">
+            <h2 class="winner-question">You won!</h2>
+            <img class="winner-image" src="images/person-winner.png" alt="">
+            <button class="new-game"><i class="fa-solid fa-rotate"></i></button>
         </div>
     </div>
 </body>
