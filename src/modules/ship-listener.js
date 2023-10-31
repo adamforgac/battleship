@@ -11,13 +11,11 @@ export default function shipListener(className, playerGameBoard) {
   const gameField = document.querySelector(`.${className}`);
   hoverColors('AXIS: X', 5);
 
-  // Define the event listener function
   function clickHandler(e) {
     const classes = e.target.classList;
     const position = classes[1];
 
     if (classes.length < 3) {
-      // does not count if the user clicks on the gap
       return;
     }
 
@@ -28,25 +26,21 @@ export default function shipListener(className, playerGameBoard) {
     hoverColors(shipOrientation, shipLength);
 
     if (checkShipValidity(shipOrientation, shipLength, position) && checkStatus(position, shipLength, shipOrientation, playerGameBoard)) {
-      console.log('completed');
       const ship = new Ship(shipLength, shipOrientation, position);
       playerGameBoard.ships.push(ship);
       playerGameBoard.placeImage(ship, 'grid-container-picker');
       if (shipSizes.length === 0) {
-        // Remove the event listener when the condition is fulfilled
         gameField.removeEventListener('click', clickHandler);
         const backgroundAnimation = document.querySelector('.background-animation-space');
         backgroundAnimation.classList.add('background-animation');
+        window.scrollTo(0, 0);
         setTimeout(() => {
           createMainGameField(playerGameBoard);
         }, 800);
         return;
       }
-      console.log(shipSizes);
     } else {
-      console.log('occupied');
       shipSizes.unshift(shipLength);
-      console.log(shipSizes);
     }
   }
 
