@@ -1,0 +1,322 @@
+@media (hover: hover) {
+    .bot-field > div:hover {
+        background-color: rgb(7, 121, 9);
+    }
+
+    .start-button:hover, .rules:hover {
+        background-color: white;
+    }
+}
+
+@media only screen and (max-width: 1070px) {
+    .player-field, .bot-field {
+        width: 370px;
+        height: 370px;
+        gap: 2px;
+    }
+
+    .grid-container-picker {
+        gap: 2px;
+    }
+
+    .length-2.ship-image-y {
+        margin-top: -3px;
+    }
+
+    .player-field img.ship-image-y, .bot-field img.ship-image-y {
+        height: 35px;
+        transform: rotate(90deg) translate(0px, 13px);
+    } 
+
+    .player-field img.ship-image-x, .bot-field img.ship-image-x {
+        height: 35px;
+    } 
+
+    .length-2 {
+        height: 28px !important;
+        margin-top: 2px;
+        margin-left: 1px;
+    }
+
+    .no-hit, .hit {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .background-animation-space img {
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    header img {
+        width: 550px;
+        padding: 10px;
+    }
+
+    .bot-heading, .player-heading {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .picker-image {
+        width: 270px;
+    }
+
+    .player-field, .bot-field {
+        width: 340px;
+        height: 340px;
+    }
+
+    .length-2 {
+        height: 25px !important;
+        margin-top: 2px;
+    }
+
+    .no-hit, .hit {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .player-field, .bot-field {
+        width: 300px;
+        height: 300px;
+    }
+
+    .player-field img, .bot-field img {
+        height: 30px;
+    } 
+
+    .no-hit, .hit {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    main {
+        flex-direction: column;
+    } 
+
+    .player-field, .bot-field {
+        width: 350px;
+        height: 350px;
+    }
+
+    .player-field img, .bot-field img {
+        height: 37px;
+    } 
+
+    .length-2 {
+        height: 28px !important;
+        margin-top: 2px;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    header img {
+        width: 390px;
+    }
+
+    .ship-image-y {
+        position: absolute;
+        transform: rotate(90deg) translate(0px, 6px);
+    }
+
+    main h3 {
+        font-size: 1.4rem;
+    }
+
+    .length-2.ship-image-y {
+        margin-left: -3px;
+    }
+
+    main input {
+        width: 250px;
+        height: 45px;
+        font-size: 1.6rem;
+        padding: 4px;
+    }
+
+    main button {
+        height: 50px;
+        width: 150px;
+        font-size: 1.2rem;
+    }
+
+    .grid-container-picker {
+        width: 400px;
+        height: 400px;
+    }
+
+    .axis-button {
+        width: 120px;
+        height: 48px;
+    }
+
+    .grid-container-picker img {
+        height: 37px;
+    }
+
+    .background-animation-space img {
+        width: 260px;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    header img {
+        width: 290px;
+    }
+
+    footer img {
+        width: 80px;
+    }
+
+    .grid-container-picker {
+        width: 340px;
+        height: 340px;
+    }
+
+    .ship-image-y {
+        position: absolute;
+        transform: rotate(90deg) translate(0px, 12px);
+    }
+
+    .winner-question {
+        font-size: 2.7rem;
+    }
+
+    .winner-image {
+        width: 280px;
+    }
+
+    .winning-screen {
+        gap: 20px;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .winner-question {
+        font-size: 2.9rem;
+    }
+
+    .winner-image {
+        width: 320px;
+    }
+}
+
+@media only screen and (max-width: 365px) {
+    .player-field, .bot-field {
+        width: 250px;
+        height: 250px;
+    }
+
+    .length-2.ship-image-y {
+        margin-top: 2px;
+    }
+
+    header img {
+        width: 200px;
+    }
+
+    .grid-container-picker {
+        width: 290px;
+        height: 290px;
+    }
+
+    .grid-container-picker img {
+        height: 23px;
+    }
+
+    .grid-container-picker img.ship-image-y {
+        transform: rotate(90deg) translate(0, 23px);
+    }
+
+    .player-field img.ship-image-x, .bot-field img.ship-image-x {
+        height: 35px;
+        transform: translate(-3px, -7px);
+    } 
+
+    .player-field img, .bot-field img {
+        height: 25px;
+    } 
+
+    .length-2 {
+        height: 17px !important;
+        margin-left: -1px;
+    }
+
+    .length-2.ship-image-y {
+        margin-left: -8px;
+    }
+
+    .length-2.ship-image-x {
+        margin-top: 10px;
+        margin-left: 3px;
+    }
+
+    .player-field img.ship-image-y, .bot-field img.ship-image-y {
+        height: 35px;
+        transform: rotate(90deg) translate(-3px, 19px);
+    } 
+
+    .no-hit, .hit {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    main h3 {
+        font-size: 1.3rem;
+    }
+
+    main input {
+        width: 170px;
+        height: 37px;
+        font-size: 1.1rem;
+        padding: 4px;
+    }
+
+    .picker-image {
+        width: 230px;
+    }
+
+    .grid-container-picker {
+        width: 250px;
+        height: 250px;
+    }
+
+    main h3 {
+        font-size: 1rem;
+    }
+
+    .start-button {
+        height: 37px;
+        width: 140px;
+        font-size: 1rem;
+        margin: 15px;
+    }
+    
+    .rules {
+        height: 37px;
+        width: 140px;
+        font-size: 1rem;
+    }
+
+    .middle-heading {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .background-animation-space img {
+        width: 200px;
+    }
+}
