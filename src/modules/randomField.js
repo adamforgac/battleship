@@ -18,12 +18,11 @@ export default function createRandomField() {
       xNum = randomPick;
       yNum = startPoint;
     } else {
-      console.log('worked');
       xNum = startPoint;
       yNum = randomPick;
     }
     const connectedClass = `cell-${xNum}-${yNum}`;
-    console.log(connectedClass);
+    // console.log(connectedClass);
 
     if (!checkStatus(connectedClass, currentSize, orientationPick, botGameBoard)) {
       shipSizes.unshift(currentSize);
@@ -32,7 +31,5 @@ export default function createRandomField() {
       botGameBoard.ships.push(newShip);
     }
   }
-
-  botGameBoard.showShips();
   return botGameBoard;
 }

@@ -1,3 +1,5 @@
+// CHECKS IF THE COORDINATE CAN BE CHOSEN
+
 export default function checkStatus(
   newPosition,
   length,
@@ -18,7 +20,7 @@ export default function checkStatus(
       }
     }
     playBoard.checkOccupied();
-    return true; // vrátí true, když je to v pořádku
+    return true;
   }
 
   return false;
